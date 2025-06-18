@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BitRoot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        
+        body {
+            font-family: 'Orbitron', 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #00aaff;
+            overflow-x: hidden;
+        }
+
+        .hero-section {
+            height: 100vh;
+            background: linear-gradient(45deg, #001122, #002244, #001133);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease-in-out infinite;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(0, 170, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 100, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(100, 200, 255, 0.1) 0%, transparent 50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #00aaff, #0066cc);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: 900;
+            color: #000;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+            box-shadow: 
+                0 0 20px rgba(0, 170, 255, 0.6),
+                inset 0 0 20px rgba(255, 255, 255, 0.2);
+            image-rendering: pixelated;
+            filter: contrast(1.2);
+            font-family: 'Orbitron', monospace;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+
+        .title {
+            font-size: 64px;
+            font-weight: 900;
+            text-shadow: 
+                0 0 10px currentColor,
+                0 0 20px currentColor,
+                0 0 40px currentColor;
+            animation: textGlow 2s ease-in-out infinite alternate;
+            letter-spacing: 4px;
+            font-family: 'Orbitron', monospace;
+            image-rendering: pixelated;
+        }
+
+        @keyframes textGlow {
+            from { 
+                text-shadow: 
+                    0 0 10px currentColor,
+                    0 0 20px currentColor,
+                    0 0 40px currentColor;
+            }
+            to { 
+                text-shadow: 
+                    0 0 5px currentColor,
+                    0 0 10px currentColor,
+                    0 0 20px currentColor;
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #00aaff;
+            animation: bounce 2s infinite;
+            font-family: 'Orbitron', monospace;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        .buttons-section {
+            min-height: 100vh;
+            background: #0f0f0f;
+            padding: 80px 20px;
+            position: relative;
+        }
+
+        .buttons-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 40px 0;
+        }
+
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .nav-button {
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            border: 2px solid #00aaff;
+            color: #00aaff;
+            padding: 30px 40px;
+            font-size: 22px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            image-rendering: pixelated;
+            transform: translateY(50px);
+            opacity: 0;
+            animation: slideUp 0.8s ease forwards;
+        }
+
+        .nav-button:nth-child(1) { animation-delay: 0.1s; }
+        .nav-button:nth-child(2) { animation-delay: 0.2s; }
+        .nav-button:nth-child(3) { animation-delay: 0.3s; }
+        .nav-button:nth-child(4) { animation-delay: 0.4s; }
+        .nav-button:nth-child(5) { animation-delay: 0.5s; }
+        .nav-button:nth-child(6) { animation-delay: 0.6s; }
+        .nav-button:nth-child(7) { animation-delay: 0.7s; }
+        .nav-button:nth-child(8) { animation-delay: 0.8s; }
+        .nav-button:nth-child(9) { animation-delay: 0.9s; }
+        .nav-button:nth-child(10) { animation-delay: 1.0s; }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 170, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: #66ccff;
+            color: #66ccff;
+            box-shadow: 
+                0 12px 40px rgba(0, 170, 255, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-button:hover::before {
+            left: 100%;
+        }
+
+        .nav-button:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 60px;
+            color: #00aaff;
+            text-shadow: 0 0 20px currentColor;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+        }
+
+        .pixel-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.08;
+            background-image: 
+                linear-gradient(rgba(0, 170, 255, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 170, 255, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: pixelMove 20s linear infinite;
+        }
+
+        @keyframes pixelMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(20px, 20px); }
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 42px;
+                letter-spacing: 2px;
+            }
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+                font-size: 32px;
+            }
+            
+            .nav-button {
+                padding: 20px 30px;
+                font-size: 20px;
+            }
+            
+            .section-title {
+                font-size: 36px;
+            }
+            
+            .buttons-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="pixel-grid"></div>
+    
+    <section class="hero-section">
+        <div class="logo">BR</div>
+        <h1 class="title">BitRoot</h1>
+        <div class="scroll-indicator">▼ Scroll Down ▼</div>
+    </section>
+
+    <section class="buttons-section">
+        <div class="section">
+            <h2 class="section-title">NAVIGATION</h2>
+            <div class="buttons-container">
+                <a href="#about" class="nav-button"><span>📖 About</span></a>
+                <a href="#projects" class="nav-button"><span>🚀 Projects</span></a>
+                <a href="#blog" class="nav-button"><span>📝 Blog</span></a>
+                <a href="#contact" class="nav-button"><span>📧 Contact</span></a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">SOCIAL LINKS</h2>
+            <div class="buttons-container">
+                <a href="https://youtube.com" class="nav-button" target="_blank"><span>🎥 YouTube</span></a>
+                <a href="https://x.com" class="nav-button" target="_blank"><span>𝕏 X (Twitter)</span></a>
+                <a href="https://instagram.com" class="nav-button" target="_blank"><span>📷 Instagram</span></a>
+                <a href="https://discord.com" class="nav-button" target="_blank"><span>💬 Discord</span></a>
+                <a href="https://twitch.tv" class="nav-button" target="_blank"><span>🎮 Twitch</span></a>
+                <a href="https://tiktok.com" class="nav-button" target="_blank"><span>🎵 TikTok</span></a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.querySelector('.scroll-indicator').addEventListener('click', function() {
+            document.querySelector('.buttons-section').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+        const logo = document.querySelector('.logo');
+        logo.addEventListener('mouseenter', function() {
+            this.style.animation = 'float 0.1s ease-in-out infinite, glitch 0.5s ease-in-out';
+        });
+        
+        logo.addEventListener('mouseleave', function() {
+            this.style.animation = 'float 3s ease-in-out infinite';
+        });
+
+        const glitchStyle = document.createElement('style');
+        glitchStyle.textContent = `
+            @keyframes glitch {
+                0% { transform: translate(0); }
+                20% { transform: translate(-2px, 2px); }
+                40% { transform: translate(-2px, -2px); }
+                60% { transform: translate(2px, 2px); }
+                80% { transform: translate(2px, -2px); }
+                100% { transform: translate(0); }
+            }
+        `;
+        document.head.appendChild(glitchStyle);
+    </script>
+</body>
+</html>
